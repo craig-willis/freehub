@@ -1,8 +1,69 @@
 =error_messages_for :interests
 -form_for @interests do |f|
-  %div
-    = f.check_box(:accounting, :class => 'checkbox')
-    %label.choice{:for => 'accounting'} Accounting
+  %div.two-column
+    %div.column.left
+      %div
+      = check_box_tag(:BikeRepair, true, params[:BikeRepair], :class => 'checkbox')
+      %label.choice{:for => 'BikeRepair'} Bicycle repair & shop staffing assistance
+      %div
+      = check_box_tag(:DataEntry, true, params[:DataEntry], :class => 'checkbox')
+      %label.choice{:for => 'DataEntry'} Data entry
+      %div
+      = check_box_tag(:Sales, true, params[:Sales], :class => 'checkbox')
+      %label.choice{:for => 'Sales'} Sales/Greeting guests
+      %div
+      = check_box_tag(:Publicity, true, params[:Publicity], :class => 'checkbox')
+      %label.choice{:for => 'Publicity'} Publicity activities
+      %div
+      = check_box_tag(:Teaching, true, params[:Teaching], :class => 'checkbox')
+      %label.choice{:for => 'Teaching'} Teaching
+      %div
+      = check_box_tag(:Office, true, params[:Office], :class => 'checkbox')
+      %label.choice{:for => 'Office'} Office tasks (filing, sales tax computation, etc.)
+      %div
+      = check_box_tag(:Carpentry, true, params[:Carpentry], :class => 'checkbox')
+      %label.choice{:for => 'Carpentry'} Carpentry
+      %div
+      = check_box_tag(:Sewing, true, params[:Sewing], :class => 'checkbox')
+      %label.choice{:for => 'Sewing'} Sewing skills for shop aprons
+      %div
+      = check_box_tag(:Vehicle, true, params[:Vehicle], :class => 'checkbox')
+      %label.choice{:for => 'Vehicle'} Have a vehicle and/or trailer to lend for bike pickups/scrap days
+      %div
+      = check_box_tag(:Grant, true, params[:Grant], :class => 'checkbox')
+      %label.choice{:for => 'Grant'} Grant Writing/Grant finding/Fundraising
+    %div.column.right
+      %div
+      = check_box_tag(:Accounting, true, params[:Accounting], :class => 'checkbox')
+      %label.choice{:for => 'Accounting'} Accounting
+      %div
+      = check_box_tag(:Cleaning, true, params[:Cleaning], :class => 'checkbox')
+      %label.choice{:for => 'Cleaning'} Cleaning & organizing (laundering rags, sweeping, putting away and sorting parts, etc.)
+      %div
+      = check_box_tag(:EventPlanning, true, params[:EventPlanning], :class => 'checkbox')
+      %label.choice{:for => 'EventPlanning'} Event planning/Promotion
+      %div
+      = check_box_tag(:WorkingWithChildren, true, params[:WorkingWithChildren], :class => 'checkbox')
+      %label.choice{:for => 'WorkingWithChildren'} Working with children
+      %div
+      = check_box_tag(:Website, true, params[:Website], :class => 'checkbox')
+      %label.choice{:for => 'Website'} Website/Computer/IT
+      %div
+      = check_box_tag(:Photography, true, params[:Photography], :class => 'checkbox')
+      %label.choice{:for => 'Photography'} Photography/Videography/Artistic design
+      %div
+      = check_box_tag(:Electrician, true, params[:Electrician], :class => 'checkbox')
+      %label.choice{:for => 'Electrician'} Electrician
+      %div
+      = check_box_tag(:Legal, true, params[:Legal], :class => 'checkbox')
+      %label.choice{:for => 'Legal'} Legal work
+      %div
+      = check_box_tag(:Newsletter, true, params[:Newsletter], :class => 'checkbox')
+      %label.choice{:for => 'Newsletter'} Newsletter article writing/ Compiling relevant links
+      %div
+      = check_box_tag(:Whatever, true, params[:Whatever], :class => 'checkbox')
+      %label.choice{:for => 'Whatever'} Will do whatever task assigned
+
   %li
     =f.submit "Create"
 
