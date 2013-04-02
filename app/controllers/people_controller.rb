@@ -2,9 +2,13 @@ class PeopleController < ApplicationController
 
   permit "admin or (manager of :organization)"
 
+  before_filter :store_location
+  before_filter :requires_staff_password, :only => :edit
+
   # GET /people/1
   # GET /people/1.xml
   def show
+    session[:staff_user] = [];
     @person = Person.find(params[:id])
     @all_tags = @organization.tag_list
 
@@ -28,6 +32,7 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+
   end
 
   # POST /people
