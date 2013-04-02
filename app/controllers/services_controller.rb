@@ -1,7 +1,10 @@
 class ServicesController < ApplicationController
 
   permit "admin or (manager of :organization)"
-  
+
+  before_filter :store_location
+  before_filter :requires_staff_password, :only => [:edit, :new]
+
   # GET /services
   # GET /services.xml
   def index
