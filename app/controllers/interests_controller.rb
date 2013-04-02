@@ -37,7 +37,7 @@ class InterestsController < ApplicationController
 
   # GET /interests/1/edit
   def edit
-    @interests = Interests.find(params[:id])
+    @interests = Interests.for_person(@person)
   end
 
   # POST /interests
@@ -49,7 +49,7 @@ class InterestsController < ApplicationController
     respond_to do |format|
       if @interests.save
         flash[:notice] = 'Interest was successfully created.'
-        format.html { redirect_to(interests_path) }
+        format.html { redirect_to(edit_person_path(:id => @person)) }
         format.xml  { render :xml => @interests, :status => :created, :location => @interests }
       else
         format.html { render :action => "new" }
@@ -61,12 +61,12 @@ class InterestsController < ApplicationController
   # PUT /interests/1
   # PUT /interests/1.xml
   def update
-    @interests = Interests.find(params[:id])
+    @interests = Interests.for_person(@person)[0]
 
     respond_to do |format|
       if @interests.update_attributes(params[:interests])
         flash[:notice] = 'Interests was successfully updated.'
-        format.html { redirect_to(interest_path(:id => @interests)) }
+        format.html { redirect_to(edit_person_path(:id => @person)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -11,6 +11,36 @@
 
 ActiveRecord::Schema.define(:version => 20100626223127) do
 
+  create_table "interests", :force => true do |t|
+    t.boolean  "BikeRepair",          :default => false
+    t.boolean  "DataEntry",           :default => false
+    t.boolean  "Sales",               :default => false
+    t.boolean  "Publicity",           :default => false
+    t.boolean  "Teaching",            :default => false
+    t.boolean  "Office",              :default => false
+    t.boolean  "Carpentry",           :default => false
+    t.boolean  "Sewing",              :default => false
+    t.boolean  "Vehicle",             :default => false
+    t.boolean  "Grant",               :default => false
+    t.boolean  "Accounting",          :default => false
+    t.boolean  "Cleaning",            :default => false
+    t.boolean  "EventPlanning",       :default => false
+    t.boolean  "WorkingWithChildren", :default => false
+    t.boolean  "Website",             :default => false
+    t.boolean  "Photography",         :default => false
+    t.boolean  "Electrician",         :default => false
+    t.boolean  "Legal",               :default => false
+    t.boolean  "Newsletter",          :default => false
+    t.boolean  "Whatever",            :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "person_id"
+  end
+
+  add_index "interests", ["person_id"], :name => "fk_interests_person"
+
   create_table "notes", :force => true do |t|
     t.text     "text"
     t.integer  "notable_id"
@@ -56,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20100626223127) do
     t.integer  "updated_by_id"
     t.integer  "organization_id"
     t.integer  "yob"
+    t.string   "hashed_password"
   end
 
   add_index "people", ["created_by_id"], :name => "fk_people_created_by"

@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :path_prefix => '/:organization_key', :only => :show
   map.resources :people, :path_prefix => '/:organization_key', :collection => { :auto_complete_for_person_full_name => :get }
   map.resource :staff, :path_prefix => '/:organization_key'
-  map.resources :interests, :path_prefix => '/:organization_key/people/:person_id'
+  map.resource :interests, :path_prefix => '/:organization_key/people/:person_id'
   map.resource :role, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :visits, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :services, :path_prefix => '/:organization_key/people/:person_id'

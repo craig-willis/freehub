@@ -46,13 +46,16 @@ class PeopleController < ApplicationController
         @person.services << Service.new(:service_type_id => 'MEMBERSHIP', :paid => true) if params[:membership]
         @person.services << Service.new(:service_type_id => 'EAB', :paid => true) if params[:eab]
         @person.visits << Visit.new if params[:visiting]
+        @interests = Interests.new
+        @interests.person = @person
+        @interests.save
         
         flash[:notice] = 'Person was successfully created.'
         format.html do
           if params[:visiting]
             redirect_to today_visits_path
           else
-            redirect_to(person_path(:id => @person))
+            redirect_to edit_interests_path(:organization_key => @organization.key, :person_id => @person.id)
           end
         end
         format.xml  { render :xml => @person, :status => :created, :location => @person }
@@ -71,7 +74,10 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.update_attributes(params[:person])
         flash[:notice] = 'Person was successfully updated.'
-        format.html { redirect_to(person_path) }
+        format.html {
+          #redirect_to(person_path)
+          redirect_to edit_interests_path(:organization_key => @organization.key, :person_id => @person.id)
+        }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

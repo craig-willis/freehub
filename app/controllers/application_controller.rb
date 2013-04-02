@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def requires_staff_password
-    if (session[:staff_user].empty?)
+    if (!(permit? 'admin') && session[:staff_user].empty?)
       redirect_to  new_staff_path
     end
   end
