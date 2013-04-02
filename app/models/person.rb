@@ -15,14 +15,16 @@
 #  email           :string(255)
 #  email_opt_out   :boolean(1)      default(FALSE)
 #  phone           :string(255)
-#  staff           :boolean(1)      default(FALSE)
+#  staffs           :boolean(1)      default(FALSE)
 #  created_at      :datetime
 #  updated_at      :datetime
 #  created_by_id   :integer(4)
 #  updated_by_id   :integer(4)
 #  organization_id :integer(4)
 #  yob             :integer(4)
+#  hashed_password :string(255)
 #
+require 'digest/sha1'
 
 class Person < ActiveRecord::Base
   
@@ -52,6 +54,10 @@ class Person < ActiveRecord::Base
   validates_email_veracity_of :email, :domain_check => true
   # Note that Date.today gets evaluates at class load time, not evaluation time, but we can live with that fudge
   validates_numericality_of :yob, :allow_nil => true, :only_integer => true, :greater_than => Date.today.year - 100, :less_than => Date.today.year + 1
+
+  validates_confirmation_of :password
+  attr_accessor :password
+  before_save :encrypt_password
 
   before_validation :trim_attributes
   before_save :titleize_name, :update_full_name, :titleize_address, :downcase_email
@@ -113,7 +119,7 @@ class Person < ActiveRecord::Base
   end
   alias_method_chain :tag_list, :sorting
 
-  CSV_FIELDS = { :self => %w{id first_name last_name staff email email_opt_out phone postal_code street1 street2 city state postal_code country yob created_at membership_expires_on} }
+  CSV_FIELDS = { :self => %w{id first_name last_name staffs email email_opt_out phone postal_code street1 street2 city state postal_code country yob created_at membership_expires_on} }
 
   def self.csv_header
     CSV.generate_line(CSV_FIELDS[:self])
@@ -125,6 +131,20 @@ class Person < ActiveRecord::Base
     values[values.size - 1] = self.services.last(:membership).nil? ? nil : self.services.last(:membership).end_date.to_s(:db)
     CSV.generate_line values
   end
+
+  def self.staff_login(email, password)
+    pwd = Digest::SHA1.hexdigest(password.to_s)
+    Person.find_by_email_and_hashed_password(email, pwd)
+  end
+
+
+  def self.find_by_email_and_hashed_password(email, hashed_password)
+    sql = "SELECT * FROM people
+            WHERE email = '#{email}' and hashed_password = '#{hashed_password}'"
+
+    find_by_sql(sql)
+  end
+
 
   private
 
@@ -157,4 +177,15 @@ class Person < ActiveRecord::Base
   def update_full_name
     self.full_name = [first_name, last_name].reject{|e| e.nil? || e.empty?}.join(' ')
   end
+
+  def encrypt_password
+    unless self.password.blank?
+      self.hashed_password = Digest::SHA1.hexdigest(self.password.to_s)
+      self.password = nil
+    end
+    return true
+  end
+
+
+
 end
