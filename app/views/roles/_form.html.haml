@@ -1,0 +1,8 @@
+%div.section
+  =labeled_input 'Role' do
+    -capture do
+      = form.radio_button(:staff, false, :class => 'radio')
+      %label.choice{:for => 'person_staff_false'} Patron
+      = form.radio_button(:staff, true, :class => 'radio')
+      %label.choice{:for => 'person_staff_true'} Staff
+  %li= form.submit person.new_record? ? "Create" : "Update"

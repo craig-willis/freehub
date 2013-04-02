@@ -1,0 +1,13 @@
+%h1 Staff login required
+
+-form_tag staff_path do
+  %ul
+    =labeled_input 'Email', :for => :email do
+      -capture do
+        =text_field_tag 'email'
+    =labeled_input 'Password', :for => :password do
+      -capture do
+        =password_field_tag 'password'
+    %li
+      =submit_tag 'Log in'
+

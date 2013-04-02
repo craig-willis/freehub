@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   # Authentication
   map.resources :users
   map.resource :session
+
   map.activate '/activate/:activation_code',  :controller => 'users', :action => 'activate'
   map.forgot   '/forgot',            :controller => 'users',     :action => 'forgot'
   map.reset    '/reset/:reset_code', :controller => 'users',     :action => 'reset',
@@ -13,7 +14,9 @@ ActionController::Routing::Routes.draw do |map|
   # Organization mappings go last so they don't take precedence'
   map.resources :tags, :path_prefix => '/:organization_key', :only => :show
   map.resources :people, :path_prefix => '/:organization_key', :collection => { :auto_complete_for_person_full_name => :get }
+  map.resource :staff, :path_prefix => '/:organization_key'
   map.resources :interests, :path_prefix => '/:organization_key/people/:person_id'
+  map.resource :role, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :visits, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :services, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :notes, :path_prefix => '/:organization_key/people/:person_id'

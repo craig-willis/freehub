@@ -1,8 +1,4 @@
 =error_messages_for :interests
 -form_for @interests do |f|
-  %div
-    = f.check_box(:accounting, :class => 'checkbox')
-    %label.choice{:for => 'accounting'} Accounting
-  %li
-    =f.submit "Create"
+  = render :partial => 'interests/form', :object => f, :locals => { :interests => @interests }
 
