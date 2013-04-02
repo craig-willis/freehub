@@ -16,6 +16,15 @@
           %span
             = form.check_box(:email_opt_out, :class => 'checkbox')
             %label.choice{:for => 'person_email_opt_out'} Don't send emails
+      - if person.staff?
+        =labeled_input 'Staff password' do
+          -capture do
+            %span
+              =form.password_field(:password, :class => 'text short')
+              %label{:for => 'person_password'} Password
+            %span
+              =form.password_field(:password_confirmation, :class => 'text short')
+              %label{:for => 'person_password_confirmation'} Confirm password
       =labeled_input 'Address' do
         -capture do
           %div
@@ -44,12 +53,6 @@
       =labeled_input 'Year of Birth', :for => :yob do
         -capture do
           =form.text_field(:yob, :class => 'text short')
-      =labeled_input 'Role' do
-        -capture do
-          = form.radio_button(:staff, false, :class => 'radio')
-          %label.choice{:for => 'person_staff_false'} Patron
-          = form.radio_button(:staff, true, :class => 'radio')
-          %label.choice{:for => 'person_staff_true'} Staff
       -if person.new_record?
         =labeled_input 'Services' do
           -capture do
@@ -66,4 +69,5 @@
           %div
             =form.text_field(:tag_list, :class => 'text medium')
             %label Separated by commas
+      %li= link_to "Change role", edit_role_path(:organization_key => @organization.key, :person_id => @person)
       %li= form.submit person.new_record? ? "Create" : "Update"
