@@ -9,6 +9,9 @@
           %span
             = form.text_field(:last_name, :class => 'text short')
             %label{:for => 'person_last_name'} Last
+      =labeled_input 'Year of Birth', :for => :yob do
+        -capture do
+          =form.text_field(:yob, :class => 'text short')
       =labeled_input 'Email', :for => :person_email do
         -capture do
           %span
@@ -45,16 +48,12 @@
           %span
             = form.text_field(:country, :class => 'text short')
             %label{:for => 'person_country'} Country
-  %div.column
-    %ul
       =labeled_input 'Phone Number', :for => :person_phone do
         -capture do
           =form.text_field(:phone, :class => 'text short')
-      =labeled_input 'Year of Birth', :for => :yob do
-        -capture do
-          =form.text_field(:yob, :class => 'text short')
+  %div.column
+    %ul
       -if !person.new_record?
-
         %li= userstamp_labeled_values(person)
       =labeled_input 'Tags', :for => :tag_list do
         -capture do
@@ -63,8 +62,18 @@
             %label Separated by commas
       -if !person.new_record?
         %li= link_to "Edit role", edit_role_path(:organization_key => @organization.key, :person_id => @person)
-      -#-if person.new_record?
-        -#%li= link_to "Set interests", new_interests_path
-      -#-else
-        -#%li= link_to "Edit interests", edit_interests_path(:organization_key => @organization.key, :person_id => @person.id)
+      -if !person.accept_waiver?
+        =labeled_input 'Liability Waiver', :for => :person_email do
+          -capture do
+            %span
+              The Bike Project will take reasonable care and precautions to ensure members are safe, and will
+              exercise due diligence in accordance with our duty of care. However, it is the responsibility of members to
+              behave responsibly, respectfully, and not engage in conduct likely to endanger themselves, other members, or
+              staffers. The Bike Project is not liable for incidents outside of the program and its control.
+              I agree to waive all liability of the Bike Project, the Urbana-Champaign Independent Media Center, and
+              its staff for any accident, injury, or mishap that might befall during attendance at the Bike Project, or while
+              riding a bicycle obtained from the Bike Project.
+
+              = form.check_box(:accept_waiver, :class => 'checkbox')
+              %label.choice{:for => 'person_accept_waiver'} I agree
       %li= form.submit person.new_record? ? "Create" : "Update"
