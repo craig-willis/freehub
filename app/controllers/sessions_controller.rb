@@ -1,6 +1,7 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
 
+
   skip_before_filter :login_from_cookie, :login_required
   
   # render new.rhtml
@@ -14,7 +15,8 @@ class SessionsController < ApplicationController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_back_or_default(user_home_path(self.current_user))
+      #redirect_back_or_default(user_home_path(self.current_user))
+      redirect_to(session[:stored_location])
       flash[:notice] = "Logged in successfully"
     else
       flash[:notice] = "Log in failed"
