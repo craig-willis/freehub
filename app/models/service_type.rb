@@ -4,11 +4,19 @@ class ServiceType
   def initialize(id, name, description)
     @id, @name, @description = id, name, description
   end
-  
+
+  #Regular ($40 per year/person)
+  #Family ($65 per year/family)
+  #Student ($25 per year/person)
+  #With bike purchase (1 year membership included)
+  #Work equity
+
   TYPES = [
-            ServiceType.new('MEMBERSHIP', "Membership", "Membership for this shop."),
-            ServiceType.new('EAB', "Earn a Bike/Digging Rights", "One of everything you can find in the shop to build or fix one bike."),
-            ServiceType.new('CLASS', "Class", "Membership for this shop.")
+            ServiceType.new('MEMBERSHIP', "Regular membership ($40/year)", "Membership for this shop."),
+            ServiceType.new('FAMILY', "Family membership ($65/year)", "Membership for this shop."),
+            ServiceType.new('STUDENT', "Student membership ($25/year)", "Membership for this shop."),
+            ServiceType.new('WBP', "Membership with bike purchase", "Membership for this shop."),
+            ServiceType.new('WORKEQUITY', "Work equity membership", "Membership for this shop.")
           ]
 
   def self.[](id)
