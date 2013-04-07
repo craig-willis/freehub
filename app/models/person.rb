@@ -104,6 +104,20 @@ class Person < ActiveRecord::Base
     !services.on(:membership, time).nil?
   end
 
+  def self.get_valid_years
+    @years = Array.new
+    year = Time.now.year - 18
+    end_year = Time.now.year - 90
+
+    while year > end_year
+      @years << year
+      year-=1
+    end
+
+    return @years
+
+  end
+
   def person_type
     if staff?
       'Staff'

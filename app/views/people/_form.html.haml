@@ -11,7 +11,8 @@
             %label{:for => 'person_last_name'} Last
       =labeled_input 'Year of Birth', :for => :yob do
         -capture do
-          =form.text_field(:yob, :class => 'text short')
+          -@years = Person.get_valid_years.map { |year| [year, year] }
+          =form.select(:yob, @years)
       =labeled_input 'Email', :for => :person_email do
         -capture do
           %span

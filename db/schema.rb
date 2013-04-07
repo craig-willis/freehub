@@ -77,9 +77,9 @@ ActiveRecord::Schema.define(:version => 20100626223127) do
     t.string   "postal_code"
     t.string   "country"
     t.string   "email"
-    t.boolean  "email_opt_out",   :default => false
+    t.boolean  "email_opt_out",                :default => false
     t.string   "phone"
-    t.boolean  "staff",           :default => false
+    t.boolean  "staff",                        :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20100626223127) do
     t.integer  "organization_id"
     t.integer  "yob"
     t.string   "hashed_password"
+    t.integer  "accept_waiver",   :limit => 1
   end
 
   add_index "people", ["created_by_id"], :name => "fk_people_created_by"
@@ -159,7 +160,7 @@ ActiveRecord::Schema.define(:version => 20100626223127) do
 
   create_table "visits", :force => true do |t|
     t.datetime "arrived_at"
-    t.boolean  "volunteer",     :default => false
+    t.boolean  "volunteer",                  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
@@ -167,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20100626223127) do
     t.integer  "person_id"
     t.boolean  "staff"
     t.boolean  "member"
+    t.integer  "shop",          :limit => 1
   end
 
   add_index "visits", ["created_by_id"], :name => "fk_visits_created_by"
