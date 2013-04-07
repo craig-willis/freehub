@@ -48,7 +48,7 @@ class Person < ActiveRecord::Base
 
   has_userstamps
   
-  validates_presence_of :first_name, :organization_id
+  validates_presence_of :first_name, :last_name, :yob, :organization_id
   validates_uniqueness_of :email, :scope => :organization_id, :case_sensitive => false, :allow_nil => true, :allow_blank => true
   validates_length_of :first_name, :last_name, :street1, :street2, :city, :state, :postal_code, :country, :within => 1..40, :allow_blank => true
   validates_email_veracity_of :email, :domain_check => true
