@@ -44,6 +44,7 @@
         %label.inline{:for => 'visit_volunteer_false'} Visiting
         = f.radio_button(:volunteer, true)
         %label.inline{:for => 'visit_volunteer_true'} Volunteering
+        = f.select(:shop, options_for_select([["Urbana", "1"], ["Campus", "2"]]))
       %li
         -fields_for :note do |note|
           =note.text_area :text, :style => 'display:none;'
@@ -63,6 +64,7 @@
         -for visit in visits
           %li{:class => cycle('odd','even', :name => 'visits')}
             %span.what= visit.volunteer? ? 'Volunteered' : 'Visited'
+            %span.where= visit.shop_name
             %span.when{:title => datetime_long(visit.arrived_at)}= "#{time_ago_in_words(visit.arrived_at)} ago"
             -if visit.note
               %span.note= note_text(visit.note)

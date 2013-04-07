@@ -12,6 +12,7 @@
 #  person_id     :integer(4)
 #  staff         :boolean(1)
 #  member        :boolean(1)
+#  shop          :tinyint
 #
 
 class Visit < ActiveRecord::Base
@@ -63,6 +64,14 @@ class Visit < ActiveRecord::Base
     values << volunteer?
     values << (note.nil? ? nil : note.text)
     CSV.generate_line values
+  end
+
+  def shop_name
+    if shop == 1
+      'Urbana'
+    else
+      'Campus'
+    end
   end
 
   private

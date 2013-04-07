@@ -5,6 +5,9 @@
   =labeled_input 'Volunteer', :for => :visit_volunteer do
     -capture do
       =form.check_box :volunteer
+  =labeled_input 'Shop', :for => :visit_shop do
+    -capture do
+      = form.select(:shop, options_for_select([["Urbana", "1"], ["Campus", "2"]]))
   -fields_for :note, visit.note do |note|
     =labeled_input 'Note', :for => :visit_note do
       -capture do

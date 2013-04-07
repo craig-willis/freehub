@@ -22,6 +22,8 @@
               =link_to(visit.person.full_name, person_path(:id => visit.person))
             %td
               = visit.person.person_type
+            %td
+              = visit.shop_name
             %td.time
               = time_short(visit.arrived_at)
             %td.note{:style => 'width:400px;'}

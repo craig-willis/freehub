@@ -7,12 +7,14 @@
 %table
   %tr
     %th When
+    %th Where
     %th Datetime
     %th Volunteer
     %th Note
   -for visit in @visits
     %tr{:class => cycle('odd','even')}
       %td #{time_ago_in_words(visit.arrived_at)} ago
+      %td= visit.shop_name
       %td= datetime_long(visit.arrived_at)
       %td= visit.volunteer?
       %td.note{:style => 'width:360px;'}= note_text(visit.note)
