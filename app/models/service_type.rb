@@ -12,11 +12,11 @@ class ServiceType
   #Work equity
 
   TYPES = [
-            ServiceType.new('MEMBERSHIP', "Regular membership ($40/year)", "Membership for this shop."),
-            ServiceType.new('FAMILY', "Family membership ($65/year)", "Membership for this shop."),
-            ServiceType.new('STUDENT', "Student membership ($25/year)", "Membership for this shop."),
-            ServiceType.new('WBP', "Membership with bike purchase", "Membership for this shop."),
-            ServiceType.new('WORKEQUITY', "Work equity membership", "Membership for this shop.")
+            ServiceType.new('MEMBERSHIP', "Regular membership", "$40/year"),
+            ServiceType.new('FAMILY', "Family membership", "$65/year"),
+            ServiceType.new('STUDENT', "Student membership", "$25/year"),
+            ServiceType.new('WBP', "Membership with bike purchase", "Bike purchase"),
+            ServiceType.new('WORKEQUITY', "Work equity membership", "Work equity")
           ]
 
   def self.[](id)
