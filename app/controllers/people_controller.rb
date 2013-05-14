@@ -41,28 +41,30 @@ class PeopleController < ApplicationController
     @person = Person.new(params[:person])
     @person.organization = @organization
 
-    respond_to do |format|
-      if @person.save
-        @person.services << Service.new(:service_type_id => 'MEMBERSHIP', :paid => true) if params[:membership]
-        @person.services << Service.new(:service_type_id => 'EAB', :paid => true) if params[:eab]
-        @person.visits << Visit.new if params[:visiting]
-        @interests = Interests.new
-        @interests.person = @person
-        @interests.save
-        
-        flash[:notice] = 'Person was successfully created.'
-        format.html do
-          if params[:visiting]
-            redirect_to today_visits_path
-          else
-            redirect_to edit_interests_path(:organization_key => @organization.key, :person_id => @person.id)
+    if params[:person][:accept_waiver] != "0"
+      respond_to do |format|
+        if @person.save
+          @person.services << Service.new(:service_type_id => 'MEMBERSHIP', :paid => true) if params[:membership]
+          @person.services << Service.new(:service_type_id => 'EAB', :paid => true) if params[:eab]
+          @person.visits << Visit.new if params[:visiting]
+
+          flash[:notice] = 'New profile created.'
+          format.html do
+            if params[:visiting]
+              redirect_to today_visits_path
+            else
+              redirect_to new_interests_path(:organization_key => @organization.key, :person_id => @person.id)
+            end
           end
+          format.xml  { render :xml => @person, :status => :created, :location => @person }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
         end
-        format.xml  { render :xml => @person, :status => :created, :location => @person }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
+    else
+      flash[:notice] = 'You must accept the liability waiver to create an account.'
+      render :new
     end
   end
 
@@ -90,7 +92,10 @@ class PeopleController < ApplicationController
   # DELETE /people/1.xml
   def destroy
     @person = Person.find(params[:id])
+    @interest = Interests.for_person(@person)[0]
+    @interest.destroy
     @person.destroy
+
     flash[:notice] = 'Person was successfully removed.'
 
     respond_to do |format|
