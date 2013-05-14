@@ -56,15 +56,10 @@
     %ul
       -if !person.new_record?
         %li= userstamp_labeled_values(person)
-      =labeled_input 'Tags', :for => :tag_list do
-        -capture do
-          %div
-            =form.text_field(:tag_list, :class => 'text medium')
-            %label Separated by commas
       -if !person.new_record?
         %li= link_to "Edit role", edit_role_path(:organization_key => @organization.key, :person_id => @person)
       -if !person.accept_waiver?
-        =labeled_input 'Liability Waiver', :for => :person_email do
+        =labeled_input 'Liability Waiver', :required => true, :for => :person_email do
           -capture do
             %span
               The Bike Project will take reasonable care and precautions to ensure members are safe, and will
