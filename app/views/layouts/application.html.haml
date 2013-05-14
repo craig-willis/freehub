@@ -37,8 +37,9 @@
           -if @organization && !@organization.new_record?
             = tab_item('Home', organization_path(@organization))
             = tab_item('Visits', today_visits_path(:organization_key => @organization.key))
-            = tab_item('Reports', report_path(:action => 'index', :organization_key => @organization.key))
-            -if permit? "admin or (manager of :organization)"
+            -if permit? 'admin'
+              = tab_item('Reports', report_path(:action => 'show', :organization_key => @organization.key))
+            -if permit? "admin"
               =tab_item('Settings', edit_organization_path(@organization))
           -else
             =tab_item('Home', root_path)
