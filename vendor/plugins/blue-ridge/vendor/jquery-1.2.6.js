@@ -1070,7 +1070,7 @@ jQuery.extend({
 					elem[ name ] = value;
 				}
 
-				// browsers index elements by id/name on forms, give priority to attributes.
+				// browsers show elements by id/name on forms, give priority to attributes.
 				if( jQuery.nodeName( elem, "form" ) && elem.getAttributeNode(name) )
 					return elem.getAttributeNode( name ).nodeValue;
 

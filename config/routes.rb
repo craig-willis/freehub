@@ -21,12 +21,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :services, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :notes, :path_prefix => '/:organization_key/people/:person_id'
   map.resources :taggings, :path_prefix => '/:organization_key/people/:person_id', :only => [:index, :create, :destroy]
-
+  map.resources :welcome, :path_prefix => '/:organization_key/people/:person_id'
+  map.resources :membershipcard, :path_prefix => '/:organization_key/people/:person_id'
   map.day_visits ':organization_key/visits/:year/:month/:day',
           :controller => 'visits', :action => 'day',
           :requirements => {:year => /\d{4}/, :day => /\d{1,2}/, :month => /\d{1,2}/}
 
-  map.reports ':organization_key/reports', :controller => 'reports', :action => 'index'
+  map.reports ':organization_key/reports', :controller => 'reports', :action => 'show'
   map.report ':organization_key/reports/:action', :controller => 'reports'
 
   map.with_options :controller => 'organizations' do |organization|
@@ -61,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   #     admin.resources :products
   #   end
 
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
+  # You can have the root of your site routed with map.root -- just remember to delete public/show.html.
   map.root :controller => "organizations"
 
   # See how all your routes lay out with "rake routes"

@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.0.2)
     actionmailer (2.3.17)
       actionpack (= 2.3.17)
     actionpack (2.3.17)
@@ -12,18 +13,29 @@ GEM
       activesupport (= 2.3.17)
     activesupport (2.3.17)
     acts-as-taggable-on (2.0.6)
+    afm (0.2.0)
     annotate (2.5.0)
       rake
     builder (3.1.4)
     calendar_date_select (1.16.1)
     googlecharts (1.6.0)
     haml (3.0.25)
+    hashery (2.1.0)
     hoptoad_notifier (2.4.11)
       activesupport
       builder
     json (1.7.7)
     mysql (2.9.0)
     newrelic_rpm (3.5.5.38)
+    pdf-reader (1.3.3)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.0)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
+    prawn (0.12.0)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.2)
     rack (1.1.6)
     rails (2.3.17)
       actionmailer (= 2.3.17)
@@ -35,7 +47,9 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
+    ruby-rc4 (0.1.5)
     thoughtbot-shoulda (2.11.1)
+    ttfunk (1.0.3)
 
 PLATFORMS
   ruby
@@ -50,6 +64,7 @@ DEPENDENCIES
   json (= 1.7.7)
   mysql
   newrelic_rpm
+  prawn
   rails (= 2.3.17)
   rdoc
   thoughtbot-shoulda
