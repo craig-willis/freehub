@@ -106,8 +106,8 @@ class Person < ActiveRecord::Base
 
   def self.get_valid_years
     @years = Array.new
-    year = Time.now.year - 18
-    end_year = Time.now.year - 90
+    year = Time.now.year
+    end_year = Time.now.year - 100
 
     while year > end_year
       @years << year
