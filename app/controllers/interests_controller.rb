@@ -48,8 +48,8 @@ class InterestsController < ApplicationController
 
     respond_to do |format|
       if @interests.save
-        flash[:notice] = 'Interest was successfully created.'
-        format.html { redirect_to(edit_person_path(:id => @person)) }
+        flash[:notice] = 'Interests saved.'
+        format.html { redirect_to(welcome_path(:id => @person)) }
         format.xml  { render :xml => @interests, :status => :created, :location => @interests }
       else
         format.html { render :action => "new" }
@@ -65,8 +65,8 @@ class InterestsController < ApplicationController
 
     respond_to do |format|
       if @interests.update_attributes(params[:interests])
-        flash[:notice] = 'Interests was successfully updated.'
-        format.html { redirect_to(edit_person_path(:id => @person)) }
+        flash[:notice] = 'Interests updated.'
+        format.html { redirect_to(person_path(:id => @person)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
