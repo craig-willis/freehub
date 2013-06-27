@@ -105,11 +105,12 @@ Phone: (217) 469-5126
 www.thebikeproject.org
 EOF
 
-  print content
       Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
       smtp = Net::SMTP.new 'smtp.gmail.com', 587
-      smtp.start('gmail.com', from, 'm3t4m4g1c', :login)
+      smtp.start('gmail.com', from, 'XXX', :login)
       smtp.send_message(content, from, to)
+
+
   end
 
   end
