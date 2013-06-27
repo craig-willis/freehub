@@ -1,3 +1,5 @@
+require 'net/smtp'
+
 class ServicesController < ApplicationController
 
   permit "admin or (manager of :organization)"
@@ -50,6 +52,7 @@ class ServicesController < ApplicationController
     @service.note = Note.new(params[:note]) if params[:note]
     @service.person = @person
 
+
     respond_to do |format|
       if @service.save
         flash[:notice] = 'Service was successfully created.'
@@ -60,6 +63,55 @@ class ServicesController < ApplicationController
         format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
       end
     end
+
+    from = "cawillis@gmail.com"
+    if (!@person.email.empty?)
+
+      to = @person.email
+
+      content = <<EOF
+From: #{from}
+To: #{to}
+subject: Your Bike Project Membership
+Date: #{Time.now.rfc2822}
+
+Welcome to The Bike Project of Urbana-Champaign! This email confirms your membership to The Bike Project of Urbana-Champaign. Your membership is
+
+   Type: #{@person.membership.service_type.name}
+   Start Date: #{@person.membership.start_date}
+   Expire Date: #{@person.membership.end_date}
+
+Through membership, the Bike Project co-op offers a space, tools, and community to repair bikes, share knowledge, hold classes, and advocate for bikes in CU.  We offer two bike shop locations. Your membership is valid at both locations.
+
+Downtown Urbana Bike Project
+202 S. Broadway Ave., Urbana, IL 61801
+
+Campus Bike Shop
+608 E. Pennsylvania Ave., Champaign, IL 61820
+
+More information is available at our website: http://thebikeproject.org
+
+See our online calendar: http://thebikeproject.org/calendar
+
+See more membership information, or even renew online at: http://thebikeproject.org/membership.html
+
+For info on getting access to the shop, see: http://thebikeproject.org/orientation.html
+
+As part of your membership, you will be added to the bikecoop-announce@lists.chambana.net mailing list!  This is a low-traffic, moderated list to make announcements related to the Bike Project and the local bicycle community.  You will receive a separate email about the listerv.
+
+----                                                                                                                                                                                                                                                202 S. Broadway, Urbana, Illinois 61801
+Email: thebikeproject@gmail.com
+Phone: (217) 469-5126
+www.thebikeproject.org
+EOF
+
+  print content
+      Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+      smtp = Net::SMTP.new 'smtp.gmail.com', 587
+      smtp.start('gmail.com', from, 'm3t4m4g1c', :login)
+      smtp.send_message(content, from, to)
+  end
+
   end
 
   # PUT /services/1
