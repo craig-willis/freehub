@@ -12,6 +12,7 @@ gem "newrelic_rpm"
 gem 'hoptoad_notifier'
 gem 'prawn'
 gem 'tlsmail'
+gem 'rake', '0.8.7'
 
 group :development, :test do
   gem 'rdoc'

@@ -52,6 +52,26 @@
       =labeled_input 'Phone Number', :for => :person_phone do
         -capture do
           =form.text_field(:phone, :class => 'text short')
+
+      =labeled_input 'Permanent Information' do
+        -capture do
+          %div
+            = form.text_field(:permanent_address, :class => 'text medium')
+            %label Permanent address
+          %div
+            = form.text_field(:permanent_phone, :class => 'text short')
+            %label Permanent phone
+      =labeled_input 'Emergency Contact' do
+        -capture do
+          %div
+            = form.text_field(:contact_name, :class => 'text long')
+            %label Contact name
+          %div
+            = form.text_field(:contact_phone, :class => 'text short')
+            %label Contact phone
+          %div
+            = form.text_field(:contact_relation, :class => 'text short')
+            %label Relationship (e.g, father, mother, sister.)
   %div.column
     %ul
       -if !person.new_record?
