@@ -53,14 +53,30 @@
         -capture do
           =form.text_field(:phone, :class => 'text short')
 
-      =labeled_input 'Permanent Information' do
+      =labeled_input 'Permanent Address' do
         -capture do
           %div
-            = form.text_field(:permanent_address, :class => 'text medium')
-            %label Permanent address
+            = form.text_field(:permanent_street1, :class => 'text medium')
+            %label Street Address
           %div
-            = form.text_field(:permanent_phone, :class => 'text short')
-            %label Permanent phone
+            = form.text_field(:permanent_street2, :class => 'text medium')
+            %label Address Line 2
+          %span
+            = form.text_field(:permanent_city, :class => 'text short')
+            %label{:for => 'person_permanent_city'} City
+          %span
+            = form.text_field(:permanent_state, :class => 'text short')
+            %label{:for => 'person_permanent_state'} State / Province / Region
+          %span
+            = form.text_field(:permanent_postal_code, :class => 'text short')
+            %label{:for => 'person_permanent_postal_code'} Postal / Zip Code
+          %span
+            = form.text_field(:permanent_country, :class => 'text short')
+            %label{:for => 'person_permanent_country'} Country
+      =labeled_input 'Permanent Phone Number', :for => :person_phone do
+        -capture do
+          =form.text_field(:permanent_phone, :class => 'text short')
+
       =labeled_input 'Emergency Contact' do
         -capture do
           %div

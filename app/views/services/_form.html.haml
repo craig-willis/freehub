@@ -9,9 +9,14 @@
   =labeled_input 'End date', :for => :end_date do
     -capture do
       =calendar_date_select_tag "service[end_date]", @service[:end_date], :year_range => 4.years.ago..2.years.from_now
+  =labeled_input 'Shop', :for => :visit_shop do
+    -capture do
+      = form.select(:shop, options_for_select([["Urbana", "1"], ["Campus", "2"]]))
   %li
     =form.check_box(:paid, :class => 'checkbox')
     %label.choice{:for => 'service_paid'} Paid
+    =form.check_box(:send_email, :class => 'checkbox')
+    %label.choice{:for => 'service_send_email'} Send welcome email
   -fields_for :note, @service.note do |note|
     =labeled_input 'Note', :for => :visit_note do
       -capture do
