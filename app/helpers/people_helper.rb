@@ -9,7 +9,7 @@ module PeopleHelper
     end
     items << content_tag("li", content_tag("b", 'Add Person'),
         :url => new_person_path(:organization_key => @organization.key))
-    content_tag("ul", items.uniq)
+    #content_tag("ul", items.uniq)
+    content_tag("ul", items.uniq.join.html_safe)
   end
-
 end
