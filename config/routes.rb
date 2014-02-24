@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
           :controller => 'visits', :action => 'day',
           :requirements => {:year => /\d{4}/, :day => /\d{1,2}/, :month => /\d{1,2}/}
 
-  map.reports ':organization_key/reports', :controller => 'reports', :action => 'show'
+  map.reports ':organization_key/reports', :controller => 'reports'
   map.report ':organization_key/reports/:action', :controller => 'reports'
 
   map.with_options :controller => 'organizations' do |organization|

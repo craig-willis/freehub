@@ -27,6 +27,7 @@
         %th Type
         %th Volunteer
         %th Datetime
+        %th Shop
         %th Note
       -for visit in @visits
         %tr{:class => cycle('odd','even')}
@@ -38,10 +39,12 @@
             = visit.volunteer?
           %td
             = datetime_long(visit.arrived_at)
+          %td 
+            = visit.shop == 1 ? 'Urbana' : 'Campus'
           %td.note{:style => 'width:360px;'}
             = note_text(visit.note)
       %tr.list_controls
-        %td{:colspan => 5}
+        %td{:colspan => 6}
           -if @visits.next_page? || @visits.previous_page?
             %div.paginating_links
               More: #{paginating_links(@visits, :params => { :report => params[:report] } )}
